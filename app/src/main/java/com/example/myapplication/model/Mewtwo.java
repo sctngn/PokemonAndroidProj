@@ -7,19 +7,13 @@ import com.example.myapplication.R;
  */
 public class Mewtwo extends Pokemon {
     
-    public Mewtwo(String name) {
-        // Using similar stats to the BlackLutemon
-        super(name, "Mewtwo", 9, 0, 16);
-    }
-    
-    @Override
-    public String getAttackSkillName() {
-        return "Psychic";
-    }
-    
-    @Override
-    public String getDefendSkillName() {
-        return "Barrier";
+    /**
+     * Constructor for Mewtwo
+     */
+    public Mewtwo(int id, String name, int HP, int attack, int defense) {
+        super(id, name, "Mewtwo", HP, attack, defense);
+        this.attackSkillName = "Psychic";
+        this.defendSkillName = "Barrier";
     }
     
     @Override
@@ -28,9 +22,6 @@ public class Mewtwo extends Pokemon {
     }
     
     /**
-     * Mewtwo's special move
+     * Mewtwo doesn't need anything special here - no unique battle mechanics
      */
-    public void PsychicAttack() {
-        // Special move implementation
-    }
 }

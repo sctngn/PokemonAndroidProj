@@ -27,6 +27,9 @@ public class BattleScene extends Fragment implements Battle.BattleListener {
     private Pokemon playerPokemon;
     private Pokemon opponentPokemon;
     private Handler handler = new Handler(Looper.getMainLooper());
+    private boolean attackEffectInProgress = false;
+    private String pendingAttackEffect = null;
+    private boolean isPendingPlayerAttack = false;
     
     // Use this factory method to create a new instance with Pokemon IDs
     public static BattleScene newInstance(int playerPokemonId, int opponentPokemonId) {
@@ -170,6 +173,16 @@ public class BattleScene extends Fragment implements Battle.BattleListener {
      * Show attack effect animation based on the skill name
      */
     private void showAttackEffect(String skillName, boolean isPlayerAttack) {
+        // If there's already an effect playing, queue this one
+        if (attackEffectInProgress) {
+            pendingAttackEffect = skillName;
+            isPendingPlayerAttack = isPlayerAttack;
+            return;
+        }
+        
+        // Mark that an effect is in progress
+        attackEffectInProgress = true;
+        
         // Make effect image visible
         binding.attackEffectImage.setVisibility(View.VISIBLE);
         
@@ -185,10 +198,27 @@ public class BattleScene extends Fragment implements Battle.BattleListener {
             .load(effectResourceId)
             .into(binding.attackEffectImage);
         
-        // Hide the effect after animation
+        // Hide the effect after animation and play the next effect if queued
         handler.postDelayed(() -> {
             if (binding != null && binding.attackEffectImage != null) {
                 binding.attackEffectImage.setVisibility(View.GONE);
+                
+                // Mark that this effect is done
+                attackEffectInProgress = false;
+                
+                // Check if we have a pending effect to show
+                if (pendingAttackEffect != null) {
+                    String nextEffect = pendingAttackEffect;
+                    boolean nextIsPlayerAttack = isPendingPlayerAttack;
+                    
+                    // Clear the pending effect
+                    pendingAttackEffect = null;
+                    
+                    // Show the next effect after a short delay
+                    handler.postDelayed(() -> {
+                        showAttackEffect(nextEffect, nextIsPlayerAttack);
+                    }, 300); // 300ms delay between effects
+                }
             }
         }, 3000); // 3 seconds to show effects
     }

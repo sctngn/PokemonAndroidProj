@@ -1,11 +1,11 @@
 package com.example.myapplication.ui;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -15,18 +15,31 @@ import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentHomeBinding;
 import com.example.myapplication.model.Pokemon;
 import com.example.myapplication.model.PokeCenter;
+import com.example.myapplication.util.FilePickerHelper;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class HomeScreen extends Fragment {
     private FragmentHomeBinding binding;
     private PokeCenter pokeCenter;
     private PokemonAdapter adapter;
     private RadioButton selectedColor = null;
+    private FilePickerHelper filePickerHelper;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         pokeCenter = PokeCenter.getInstance();
+        
+        // Initialize file picker helper
+        filePickerHelper = new FilePickerHelper(
+            this, 
+            uri -> onSaveUriSelected(uri), 
+            uri -> onLoadUriSelected(uri)
+        );
+        
         setupViews();
         return binding.getRoot();
     }
@@ -61,8 +74,57 @@ public class HomeScreen extends Fragment {
             Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_battleFragment);
         });
         
+        // Setup save/load buttons
+        binding.saveButton.setOnClickListener(v -> launchSaveFilePicker());
+        binding.loadButton.setOnClickListener(v -> launchLoadFilePicker());
+        
         // Setup direct color selection
         setupDirectColorSelection();
+    }
+    
+    /**
+     * Launch file picker for saving Pokemon
+     */
+    private void launchSaveFilePicker() {
+        // Generate a default file name with current date/time
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
+        String timeStamp = sdf.format(new Date());
+        String fileName = "pokemon_" + timeStamp + ".csv";
+        
+        filePickerHelper.launchSaveFilePicker(fileName);
+    }
+    
+    /**
+     * Launch file picker for loading Pokemon
+     */
+    private void launchLoadFilePicker() {
+        filePickerHelper.launchLoadFilePicker();
+    }
+    
+    /**
+     * Called when a save URI is selected
+     */
+    private void onSaveUriSelected(Uri uri) {
+        pokeCenter.setSelectedSaveUri(uri);
+        if (pokeCenter.savePokemonToCSV()) {
+            Toast.makeText(requireContext(), "Pokemon saved successfully!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(requireContext(), "Error saving Pokemon", Toast.LENGTH_SHORT).show();
+        }
+    }
+    
+    /**
+     * Called when a load URI is selected
+     */
+    private void onLoadUriSelected(Uri uri) {
+        pokeCenter.setSelectedLoadUri(uri);
+        if (pokeCenter.loadPokemonFromCSV()) {
+            // Update the adapter with the loaded Pokemon
+            adapter.updatePokemonList(pokeCenter.getHome().listPokemons());
+            Toast.makeText(requireContext(), "Pokemon loaded successfully!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(requireContext(), "Error loading Pokemon", Toast.LENGTH_SHORT).show();
+        }
     }
     
     private void setupDirectColorSelection() {

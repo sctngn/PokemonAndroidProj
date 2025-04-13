@@ -41,7 +41,7 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonV
         holder.speciesText.setText(pokemon.getSpecies());
         holder.statsText.setText(String.format("ATK: %d, DEF: %d, HP: %d/%d, EXP: %d",
                 pokemon.getAttack(), pokemon.getDefense(),
-                pokemon.getHP(), pokemon.getMaxHP(), pokemon.getExp()));
+                pokemon.getHP(), pokemon.getMaxHP(), pokemon.getExperience()));
         
         // Set the Pokemon image
         holder.pokemonImage.setImageResource(pokemon.getImageResourceId());

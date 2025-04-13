@@ -1,5 +1,9 @@
 package com.example.myapplication.model;
 
+import android.content.Context;
+import android.net.Uri;
+import android.widget.Toast;
+
 /**
  * Manages all Pokemon and their movement between different areas
  */
@@ -9,7 +13,13 @@ public class PokeCenter {
     private final Storage home;
     private final Storage training;
     private final Storage battle;
+    private Context context;
+    private Uri lastSelectedSaveUri;
+    private Uri lastSelectedLoadUri;
 
+    /**
+     * Private constructor for singleton pattern
+     */
     private PokeCenter() {
         this.name = "Poke Center";
         home = new Storage("Home");
@@ -22,6 +32,14 @@ public class PokeCenter {
             instance = new PokeCenter();
         }
         return instance;
+    }
+
+    /**
+     * Set the application context for saving/loading
+     * @param context The application context
+     */
+    public void setContext(Context context) {
+        this.context = context;
     }
 
     /**
@@ -49,34 +67,67 @@ public class PokeCenter {
     }
 
     /**
-     * Create a new Pokemon of the specified species
+     * Create a new Pokemon with the given name and species
      * @param name Name of the Pokemon
-     * @param species Species of the Pokemon (Pikachu, Venusaur, Charizard, Blastoise, Mewtwo)
-     * @return The created Pokemon
+     * @param species Type of Pokemon to create
+     * @return The created Pokemon or null if species is invalid
      */
     public Pokemon createPokemon(String name, String species) {
-        Pokemon pokemon;
+        // Generate a unique ID for the new Pokemon
+        int id = generateNextId();
+        
+        // Create the appropriate Pokemon type
+        Pokemon pokemon = null;
         switch (species.toLowerCase()) {
             case "pikachu":
-                pokemon = new Pikachu(name);
-                break;
-            case "venusaur":
-                pokemon = new Venusaur(name);
+                pokemon = new Pikachu(id, name, 10, 8, 2);
                 break;
             case "charizard":
-                pokemon = new Charizard(name);
+                pokemon = new Charizard(id, name, 12, 6, 4);
                 break;
             case "blastoise":
-                pokemon = new Blastoise(name);
+                pokemon = new Blastoise(id, name, 11, 4, 6);
+                break;
+            case "venusaur":
+                pokemon = new Venusaur(id, name, 10, 6, 5);
                 break;
             case "mewtwo":
-                pokemon = new Mewtwo(name);
+                pokemon = new Mewtwo(id, name, 18, 8, 5);
                 break;
-            default:
-                throw new IllegalArgumentException("Invalid Pokemon species: " + species);
         }
-        home.addPokemon(pokemon);
+        
+        // Add the created Pokemon to home storage
+        if (pokemon != null) {
+            home.addPokemon(pokemon);
+        }
+        
         return pokemon;
+    }
+    
+    /**
+     * Generate the next unique ID for a new Pokemon
+     * @return A unique ID
+     */
+    private int generateNextId() {
+        int maxId = 0;
+        
+        // Check home storage
+        for (Pokemon pokemon : home.listPokemons()) {
+            maxId = Math.max(maxId, pokemon.getId());
+        }
+        
+        // Check training storage
+        for (Pokemon pokemon : training.listPokemons()) {
+            maxId = Math.max(maxId, pokemon.getId());
+        }
+        
+        // Check battle storage
+        for (Pokemon pokemon : battle.listPokemons()) {
+            maxId = Math.max(maxId, pokemon.getId());
+        }
+        
+        // Return max ID + 1
+        return maxId + 1;
     }
 
     /**
@@ -103,14 +154,14 @@ public class PokeCenter {
     }
 
     /**
-     * Train a Pokemon in the training area
+     * Train a Pokemon to gain experience
      * @param pokemonId ID of the Pokemon to train
      * @return true if training was successful, false if Pokemon not found in training area
      */
     public boolean train(int pokemonId) {
         Pokemon pokemon = training.getPokemon(pokemonId);
         if (pokemon != null) {
-            pokemon.gainExperience(1);
+            pokemon.gainExperience();
             return true;
         }
         return false;
@@ -130,6 +181,59 @@ public class PokeCenter {
             return new Battle(pokemonA, pokemonB);
         }
         return null;
+    }
+
+    /**
+     * Set the URI for saving Pokemon CSV files
+     * @param uri URI selected by the user for saving
+     */
+    public void setSelectedSaveUri(Uri uri) {
+        this.lastSelectedSaveUri = uri;
+    }
+    
+    /**
+     * Set the URI for loading Pokemon CSV files
+     * @param uri URI selected by the user for loading
+     */
+    public void setSelectedLoadUri(Uri uri) {
+        this.lastSelectedLoadUri = uri;
+    }
+    
+    /**
+     * Save all Pokemon to a CSV file
+     * @return true if save was successful
+     */
+    public boolean savePokemonToCSV() {
+        if (context == null || lastSelectedSaveUri == null) {
+            return false;
+        }
+        
+        // Combine Pokemon from all storages
+        Storage allPokemon = new Storage("All");
+        for (Pokemon pokemon : home.listPokemons()) {
+            allPokemon.addPokemon(pokemon);
+        }
+        for (Pokemon pokemon : training.listPokemons()) {
+            allPokemon.addPokemon(pokemon);
+        }
+        for (Pokemon pokemon : battle.listPokemons()) {
+            allPokemon.addPokemon(pokemon);
+        }
+        
+        return PokemonCSVManager.savePokemonToCSV(context, allPokemon, lastSelectedSaveUri);
+    }
+    
+    /**
+     * Load Pokemon from a CSV file
+     * @return true if load was successful
+     */
+    public boolean loadPokemonFromCSV() {
+        if (context == null || lastSelectedLoadUri == null) {
+            return false;
+        }
+        
+
+        return PokemonCSVManager.loadPokemonFromCSV(context, home, lastSelectedLoadUri);
     }
 
     // Getters for storage areas

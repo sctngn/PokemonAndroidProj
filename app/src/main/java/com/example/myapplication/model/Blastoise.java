@@ -7,19 +7,13 @@ import com.example.myapplication.R;
  */
 public class Blastoise extends Pokemon {
     
-    public Blastoise(String name) {
-        // Using similar stats to the OrangeLutemon
-        super(name, "Blastoise", 8, 1, 17);
-    }
-    
-    @Override
-    public String getAttackSkillName() {
-        return "Hydro Pump";
-    }
-    
-    @Override
-    public String getDefendSkillName() {
-        return "Withdraw";
+    /**
+     * Constructor for Blastoise
+     */
+    public Blastoise(int id, String name, int HP, int attack, int defense) {
+        super(id, name, "Blastoise", HP, attack, defense);
+        this.attackSkillName = "Hydro Pump";
+        this.defendSkillName = "Withdraw";
     }
     
     @Override

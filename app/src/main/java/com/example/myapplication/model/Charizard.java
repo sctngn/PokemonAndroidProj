@@ -7,18 +7,13 @@ import com.example.myapplication.R;
  */
 public class Charizard extends Pokemon {
     
-    public Charizard(String name) {
-        super(name, "Charizard", 7, 2, 18);
-    }
-    
-    @Override
-    public String getAttackSkillName() {
-        return "Flamethrower";
-    }
-    
-    @Override
-    public String getDefendSkillName() {
-        return "Heat Wave";
+    /**
+     * Constructor for Charizard
+     */
+    public Charizard(int id, String name, int HP, int attack, int defense) {
+        super(id, name, "Charizard", HP, attack, defense);
+        this.attackSkillName = "Flamethrower";
+        this.defendSkillName = "Endure";
     }
     
     @Override

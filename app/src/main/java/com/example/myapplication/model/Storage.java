@@ -1,5 +1,6 @@
 package com.example.myapplication.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,7 +8,8 @@ import java.util.List;
 /**
  * Storage class for managing Pokemon in different areas (home, training, battle)
  */
-public class Storage {
+public class Storage implements Serializable {
+    private static final long serialVersionUID = 1L;
     private final HashMap<Integer, Pokemon> pokemons;
     private final String name;
 
@@ -58,11 +60,11 @@ public class Storage {
         return name;
     }
 
+
     /**
-     * Get the number of Pokemon in this storage
-     * @return Number of Pokemon
+     * Clear all Pokemon from this storage
      */
-    public int getCount() {
-        return pokemons.size();
+    public void clearPokemons() {
+        pokemons.clear();
     }
 }

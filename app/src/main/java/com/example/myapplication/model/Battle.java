@@ -38,14 +38,14 @@ public class Battle {
                 break;
             case DEFEND:
                 // Increase defense temporarily for this turn
-                playerPokemon.setDefense(playerPokemon.getDefense() + 2);
+                playerPokemon.setDefense(playerPokemon.getDefense() + 3);
                 notifyDefend(playerPokemon);
                 break;
         }
 
         // Check if opponent Pokemon is defeated
         if (opponentPokemon.getHP() <= 0) {
-            playerPokemon.gainExperience(1);
+            playerPokemon.gainExperience();
             notifyBattleOver(playerPokemon, opponentPokemon);
             isOver = true;
             return true;
@@ -75,7 +75,7 @@ public class Battle {
 
         // Check if player Pokemon is defeated
         if (playerPokemon.getHP() <= 0) {
-            opponentPokemon.gainExperience(1);
+            opponentPokemon.gainExperience();
             notifyBattleOver(opponentPokemon, playerPokemon);
             isOver = true;
             return true;
@@ -87,30 +87,28 @@ public class Battle {
     }
 
     /**
-     * Perform an attack from attacker to defender
+     * Execute a single attack between two Pokemon
      */
     private void performAttack(Pokemon attacker, Pokemon defender) {
-        // Get attack power with any multipliers already applied
-        int attackPower = attacker.attack();
-        int damage = Math.max(0, attackPower - defender.getDefense());
-        
-        // Apply the attack through the defense method
-        defender.defense(attacker);
-        
         // Create the battle log message
         String skillName = attacker.getAttackSkillName();
-        
         // Add multiplier info for Pikachu
         if (attacker instanceof Pikachu) {
             Pikachu pikachu = (Pikachu) attacker;
             double multiplier = pikachu.getLastMultiplier();
-            
+
             if (multiplier == 0) {
                 skillName += " (Missed)";
             } else if (multiplier == 2.0) {
                 skillName += " (Super effective!)";
             }
         }
+        // Get attack power with any multipliers already applied
+        int attackPower = attacker.attack();
+        int damage = attackPower - defender.getDefense();
+        
+        // Apply the damage directly
+        defender.setHP(defender.getHP() - damage);
         
         // Notify listeners with the enhanced skill name
         notifyAttack(attacker, defender, damage, skillName);

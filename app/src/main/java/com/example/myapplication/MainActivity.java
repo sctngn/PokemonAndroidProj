@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
+import com.example.myapplication.model.PokeCenter;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // Initialize PokeCenter with context for save/load functionality
+        PokeCenter.getInstance().setContext(getApplicationContext());
 
         setSupportActionBar(binding.toolbar);
 

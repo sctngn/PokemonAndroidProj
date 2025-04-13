@@ -65,7 +65,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="8dp"
-                            android:text="Pikachu\nAttack: 5, Defense: 4, Max HP: 20"/>
+                            android:text="Pikachu\nAttack: 8, Defense: 2, Max HP: 10"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -82,7 +82,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="8dp"
-                            android:text="Venusaur\nAttack: 6, Defense: 3, Max HP: 19"/>
+                            android:text="Venusaur\nAttack: 6, Defense: 5, Max HP: 10"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -99,7 +99,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="8dp"
-                            android:text="Charizard\nAttack: 7, Defense: 2, Max HP: 18"/>
+                            android:text="Charizard\nAttack: 6, Defense: 4, Max HP: 12"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -116,7 +116,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="8dp"
-                            android:text="Blastoise\nAttack: 8, Defense: 1, Max HP: 17"/>
+                            android:text="Blastoise\nAttack: 4, Defense: 6, Max HP: 11"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -133,7 +133,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="8dp"
-                            android:text="Mewtwo\nAttack: 9, Defense: 0, Max HP: 16"/>
+                            android:text="Mewtwo\nAttack: 8, Defense: 5, Max HP: 18"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -184,12 +184,38 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/saveLoadButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/areaButtons">
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Save Pokemon"
+            android:layout_margin="4dp"/>
+
+        <Button
+            android:id="@+id/loadButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Load Pokemon"
+            android:layout_margin="4dp"/>
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lutemonList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/areaButtons"
+        app:layout_constraintTop_toBottomOf="@id/saveLoadButtons"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

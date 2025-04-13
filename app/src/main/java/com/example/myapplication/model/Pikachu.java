@@ -4,14 +4,19 @@ import com.example.myapplication.R;
 import java.util.Random;
 
 /**
- * Pikachu Pokemon class
+ * Pikachu Pokemon class with special random attack multiplier
  */
 public class Pikachu extends Pokemon {
     private Random random = new Random();
-    private double lastMultiplier = 1.0; // Track the last multiplier used
+    private double lastMultiplier = 1.0;
     
-    public Pikachu(String name) {
-        super(name, "Pikachu", 5, 4, 20);
+    /**
+     * Constructor for Pikachu
+     */
+    public Pikachu(int id, String name, int HP, int attack, int defense) {
+        super(id, name, "Pikachu", HP, attack, defense);
+        this.attackSkillName = "Thunderbolt";
+        this.defendSkillName = "Agility";
     }
     
     @Override
@@ -21,7 +26,7 @@ public class Pikachu extends Pokemon {
     
     @Override
     public String getDefendSkillName() {
-        return "Quick Guard";
+        return "Agility";
     }
     
     @Override
@@ -30,38 +35,36 @@ public class Pikachu extends Pokemon {
     }
     
     /**
-     * Get the multiplier that was used in the last attack
+     * Get the last attack multiplier used
+     * @return The last multiplier value
      */
     public double getLastMultiplier() {
         return lastMultiplier;
     }
     
     /**
-     * Override attack method to add random multiplier
-     * Has a chance to deal 0x, 1x, or 2x normal damage
+     * Pikachu's special attack with random multiplier:
+     * 0x (miss), 1x (normal), or 2x (critical) damage
      */
     @Override
     public int attack() {
-        int baseAttack = super.attack(); // Get the base attack value
-        
-        // Generate a random number 0-2 to determine the multiplier
+        int baseAttack = super.attack();
         int randomValue = random.nextInt(3);
         
         switch (randomValue) {
             case 0:
-                lastMultiplier = 0; // No damage
-                return 0; // Return 0 immediately to ensure no damage is dealt
+                lastMultiplier = 0; // No damage (miss)
+                return 0;
             case 1:
                 lastMultiplier = 1.0; // Normal damage
                 break;
             case 2:
-                lastMultiplier = 2.0; // Double damage
+                lastMultiplier = 2.0; // Double damage (critical)
                 break;
             default:
                 lastMultiplier = 1.0; // Fallback to normal damage
         }
         
-        // Apply the multiplier and return the result
         return (int)(baseAttack * lastMultiplier);
     }
 }

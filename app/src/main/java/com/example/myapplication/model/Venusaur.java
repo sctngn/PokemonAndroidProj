@@ -7,19 +7,13 @@ import com.example.myapplication.R;
  */
 public class Venusaur extends Pokemon {
     
-    public Venusaur(String name) {
-        // Using similar stats to the GreenLutemon
-        super(name, "Venusaur", 6, 3, 19);
-    }
-    
-    @Override
-    public String getAttackSkillName() {
-        return "Razor Leaf";
-    }
-    
-    @Override
-    public String getDefendSkillName() {
-        return "Vine Whip Barrier";
+    /**
+     * Constructor for Venusaur
+     */
+    public Venusaur(int id, String name, int HP, int attack, int defense) {
+        super(id, name, "Venusaur", HP, attack, defense);
+        this.attackSkillName = "Razor Leaf";
+        this.defendSkillName = "Growth";
     }
     
     @Override
