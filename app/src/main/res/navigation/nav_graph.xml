@@ -18,6 +18,10 @@
         <action
             android:id="@+id/action_homeFragment_to_battleFragment"
             app:destination="@id/battleFragment" />
+            
+        <action
+            android:id="@+id/action_homeFragment_to_statisticsFragment"
+            app:destination="@id/statisticsFragment" />
     </fragment>
 
     <fragment
@@ -63,5 +67,16 @@
         <action
             android:id="@+id/action_battleSceneFragment_to_battleFragment"
             app:destination="@id/battleFragment" />
+    </fragment>
+    
+    <fragment
+        android:id="@+id/statisticsFragment"
+        android:name="com.example.myapplication.ui.StatisticsFragment"
+        android:label="Statistics"
+        tools:layout="@layout/fragment_statistics">
+        
+        <action
+            android:id="@+id/action_statisticsFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

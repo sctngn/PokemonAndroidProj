@@ -54,7 +54,10 @@ public class HomeScreen extends Fragment {
         binding.createButton.setOnClickListener(v -> createPokemon());
 
         // Setup area buttons
-        binding.homeButton.setOnClickListener(v -> showAreaPokemons("home"));
+        binding.homeButton.setOnClickListener(v -> {
+            // Navigate to Statistics screen to view detailed battle statistics with charts
+            navigateToFragment(R.id.action_homeFragment_to_statisticsFragment);
+        });
         binding.trainingButton.setOnClickListener(v -> {
             // First move selected Pokemon to training
             List<Pokemon> pokemons = pokeCenter.getHome().listPokemons();
@@ -62,7 +65,7 @@ public class HomeScreen extends Fragment {
                 pokeCenter.movePokemon(pokemon.getId(), pokeCenter.getHome(), pokeCenter.getTraining());
             }
             // Then navigate to training fragment
-            Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_trainingFragment);
+            navigateToFragment(R.id.action_homeFragment_to_trainingFragment);
         });
         binding.battleButton.setOnClickListener(v -> {
             // First move selected Pokemon to battle
@@ -71,7 +74,7 @@ public class HomeScreen extends Fragment {
                 pokeCenter.movePokemon(pokemon.getId(), pokeCenter.getHome(), pokeCenter.getBattle());
             }
             // Then navigate to battle fragment
-            Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_battleFragment);
+            navigateToFragment(R.id.action_homeFragment_to_battleFragment);
         });
         
         // Setup save/load buttons
@@ -189,6 +192,47 @@ public class HomeScreen extends Fragment {
         Toast.makeText(requireContext(), "Created " + species + " Pokemon: " + name, Toast.LENGTH_SHORT).show();
     }
 
+    private Pokemon getSelectedPokemon() {
+        // Get the selected Pokemon based on which radio button is checked
+        List<Pokemon> pokemons = pokeCenter.getHome().listPokemons();
+        if (pokemons.isEmpty()) {
+            Toast.makeText(requireContext(), "No Pokemon available", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+        
+        int selectedButtonId = binding.colorRadioGroup.getCheckedRadioButtonId();
+        
+        // If no radio button is selected, return the first Pokemon in the list
+        if (selectedButtonId == -1) {
+            Toast.makeText(requireContext(), "Please select a Pokemon", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+        
+        // Find the Pokemon based on the selected radio button
+        String selectedSpecies = "";
+        if (selectedButtonId == R.id.whiteButton) {
+            selectedSpecies = "Pikachu";
+        } else if (selectedButtonId == R.id.greenButton) {
+            selectedSpecies = "Venusaur";
+        } else if (selectedButtonId == R.id.pinkButton) {
+            selectedSpecies = "Charizard";
+        } else if (selectedButtonId == R.id.orangeButton) {
+            selectedSpecies = "Blastoise";
+        } else if (selectedButtonId == R.id.blackButton) {
+            selectedSpecies = "Mewtwo";
+        }
+        
+        // Find the first Pokemon of the selected species
+        for (Pokemon pokemon : pokemons) {
+            if (pokemon.getSpecies().equals(selectedSpecies)) {
+                return pokemon;
+            }
+        }
+        
+        Toast.makeText(requireContext(), "No " + selectedSpecies + " found. Please create one first.", Toast.LENGTH_SHORT).show();
+        return null;
+    }
+
     private void showAreaPokemons(String area) {
         switch (area) {
             case "home":
@@ -201,6 +245,10 @@ public class HomeScreen extends Fragment {
                 adapter.updatePokemonList(pokeCenter.getBattle().listPokemons());
                 break;
         }
+    }
+
+    private void navigateToFragment(int actionId) {
+        Navigation.findNavController(requireView()).navigate(actionId);
     }
 
     @Override

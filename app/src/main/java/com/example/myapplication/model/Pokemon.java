@@ -23,6 +23,12 @@ public abstract class Pokemon implements Serializable {
     protected String defendSkillName;
     protected transient Random random;
     
+    // Statistics tracking
+    protected int totalBattles = 0;
+    protected int wins = 0;
+    protected int losses = 0;
+    protected int trainingDays = 0;
+    
     /**
      * Constructor for creating a Pokemon
      * @param id unique identifier
@@ -161,6 +167,14 @@ public abstract class Pokemon implements Serializable {
         return experience;
     }
     
+    /**
+     * Set the experience points for this Pokemon
+     * @param experience New experience value
+     */
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+    
     public String getAttackSkillName() {
         return attackSkillName;
     }
@@ -179,5 +193,56 @@ public abstract class Pokemon implements Serializable {
     
     public void setHP(int hp) {
         this.HP = Math.max(0, Math.min(hp, maxHP));
+    }
+    
+    /**
+     * Get the number of battles this Pokemon has participated in
+     */
+    public int getTotalBattles() {
+        return totalBattles;
+    }
+    
+    /**
+     * Get the number of battles this Pokemon has won
+     */
+    public int getWins() {
+        return wins;
+    }
+    
+    /**
+     * Get the number of battles this Pokemon has lost
+     */
+    public int getLosses() {
+        return losses;
+    }
+    
+    /**
+     * Get the number of days this Pokemon has spent training
+     */
+    public int getTrainingDays() {
+        return trainingDays;
+    }
+    
+    /**
+     * Record a battle win for this Pokemon
+     */
+    public void recordWin() {
+        wins++;
+        totalBattles++;
+    }
+    
+    /**
+     * Record a battle loss for this Pokemon
+     */
+    public void recordLoss() {
+        losses++;
+        totalBattles++;
+    }
+    
+    /**
+     * Record a day of training for this Pokemon
+     */
+    public void recordTrainingDay() {
+        trainingDays++;
     }
 }

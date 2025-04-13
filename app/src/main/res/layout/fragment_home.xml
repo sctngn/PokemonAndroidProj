@@ -13,16 +13,16 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:text="Create New Pokemon"
-                android:textAppearance="?attr/textAppearanceHeadline6"
-                android:layout_marginBottom="8dp"/>
+                android:textAppearance="?attr/textAppearanceHeadline6" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -35,16 +35,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:maxLines="1"/>
+                    android:maxLines="1" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:text="Choose Your Pokemon"
-                android:textAppearance="?attr/textAppearanceSubtitle1"
-                android:layout_marginBottom="4dp"/>
+                android:textAppearance="?attr/textAppearanceSubtitle1" />
 
             <RadioGroup
                 android:id="@+id/colorRadioGroup"
@@ -56,16 +56,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
                         <RadioButton
                             android:id="@+id/whiteButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="8dp"
-                            android:text="Pikachu\nAttack: 8, Defense: 2, Max HP: 10"/>
+                            android:text="Pikachu\nAttack: 8, Defense: 2, Max HP: 10" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -73,16 +75,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
                         <RadioButton
                             android:id="@+id/greenButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="8dp"
-                            android:text="Venusaur\nAttack: 6, Defense: 5, Max HP: 10"/>
+                            android:text="Venusaur\nAttack: 6, Defense: 5, Max HP: 10" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -90,16 +94,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
                         <RadioButton
                             android:id="@+id/pinkButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="8dp"
-                            android:text="Charizard\nAttack: 6, Defense: 4, Max HP: 12"/>
+                            android:text="Charizard\nAttack: 6, Defense: 4, Max HP: 12" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -107,16 +113,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
                         <RadioButton
                             android:id="@+id/orangeButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="8dp"
-                            android:text="Blastoise\nAttack: 4, Defense: 6, Max HP: 11"/>
+                            android:text="Blastoise\nAttack: 4, Defense: 6, Max HP: 11" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -124,16 +132,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
                         <RadioButton
                             android:id="@+id/blackButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="8dp"
-                            android:text="Mewtwo\nAttack: 8, Defense: 5, Max HP: 18"/>
+                            android:text="Mewtwo\nAttack: 8, Defense: 5, Max HP: 18" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -143,8 +153,8 @@
                 android:id="@+id/createButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Create"
-                android:layout_gravity="end"/>
+                android:layout_gravity="end"
+                android:text="Create" />
 
         </LinearLayout>
 
@@ -163,7 +173,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Home"
+            android:text="Statistics"
             android:layout_margin="4dp"/>
 
         <Button

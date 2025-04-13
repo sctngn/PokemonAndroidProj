@@ -168,6 +168,20 @@ public class PokeCenter {
     }
 
     /**
+     * Train a Pokemon to increase its stats
+     * @param pokemon Pokemon to train
+     */
+    public void trainPokemon(Pokemon pokemon) {
+        if (pokemon != null) {
+            // Increase experience
+            pokemon.gainExperience();
+            
+            // Record training day
+            pokemon.recordTrainingDay();
+        }
+    }
+
+    /**
      * Start a battle between two Pokemon in the battle arena
      * @param pokemonAId ID of first Pokemon
      * @param pokemonBId ID of second Pokemon
@@ -240,11 +254,11 @@ public class PokeCenter {
     public Storage getHome() {
         return home;
     }
-
+    
     public Storage getTraining() {
         return training;
     }
-
+    
     public Storage getBattle() {
         return battle;
     }

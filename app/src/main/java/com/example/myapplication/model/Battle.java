@@ -12,6 +12,10 @@ public class Battle {
     private List<BattleListener> listeners;
     private boolean isOver;
     private boolean isPlayerTurn;
+    private int playerWins;
+    private int playerLosses;
+    private int opponentWins;
+    private int opponentLosses;
 
     public Battle(Pokemon playerPokemon, Pokemon opponentPokemon) {
         this.playerPokemon = playerPokemon;
@@ -19,6 +23,10 @@ public class Battle {
         this.listeners = new ArrayList<>();
         this.isOver = false;
         this.isPlayerTurn = true; // Player goes first
+        this.playerWins = 0;
+        this.playerLosses = 0;
+        this.opponentWins = 0;
+        this.opponentLosses = 0;
     }
 
     /**
@@ -46,6 +54,8 @@ public class Battle {
         // Check if opponent Pokemon is defeated
         if (opponentPokemon.getHP() <= 0) {
             playerPokemon.gainExperience();
+            playerPokemon.recordWin();
+            opponentPokemon.recordLoss();
             notifyBattleOver(playerPokemon, opponentPokemon);
             isOver = true;
             return true;
@@ -76,6 +86,8 @@ public class Battle {
         // Check if player Pokemon is defeated
         if (playerPokemon.getHP() <= 0) {
             opponentPokemon.gainExperience();
+            playerPokemon.recordLoss();
+            opponentPokemon.recordWin();
             notifyBattleOver(opponentPokemon, playerPokemon);
             isOver = true;
             return true;
