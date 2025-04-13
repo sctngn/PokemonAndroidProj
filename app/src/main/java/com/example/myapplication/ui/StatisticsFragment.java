@@ -119,7 +119,7 @@ public class StatisticsFragment extends Fragment {
         }
 
         // Create and set adapter
-        adapter = new PokemonStatsAdapter(allPokemons);
+        adapter = new PokemonStatsAdapter(allPokemons, this);
         recyclerView.setAdapter(adapter);
     }
     

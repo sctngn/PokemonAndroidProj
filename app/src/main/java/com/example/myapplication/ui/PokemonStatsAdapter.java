@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
@@ -17,9 +18,11 @@ import java.util.Locale;
 public class PokemonStatsAdapter extends RecyclerView.Adapter<PokemonStatsAdapter.PokemonStatsViewHolder> {
 
     private List<Pokemon> pokemonList;
+    private StatisticsFragment parentFragment;
 
-    public PokemonStatsAdapter(List<Pokemon> pokemonList) {
+    public PokemonStatsAdapter(List<Pokemon> pokemonList, StatisticsFragment parentFragment) {
         this.pokemonList = pokemonList;
+        this.parentFragment = parentFragment;
     }
 
     @NonNull
@@ -33,6 +36,19 @@ public class PokemonStatsAdapter extends RecyclerView.Adapter<PokemonStatsAdapte
     public void onBindViewHolder(@NonNull PokemonStatsViewHolder holder, int position) {
         Pokemon pokemon = pokemonList.get(position);
         holder.bind(pokemon);
+        
+        // Add click listener to show detailed stats
+        holder.itemView.setOnClickListener(v -> showDetailedStats(pokemon));
+    }
+    
+    private void showDetailedStats(Pokemon pokemon) {
+        // Create and display the detail fragment
+        PokemonDetailStatsFragment detailFragment = PokemonDetailStatsFragment.newInstance(pokemon);
+        
+        // Use Navigation component for navigation
+        Navigation.findNavController(parentFragment.requireView())
+                .navigate(R.id.action_statisticsFragment_to_pokemonDetailStatsFragment,
+                        detailFragment.getArguments());
     }
 
     @Override

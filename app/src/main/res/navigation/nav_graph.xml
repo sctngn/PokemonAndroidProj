@@ -78,5 +78,36 @@
         <action
             android:id="@+id/action_statisticsFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_statisticsFragment_to_pokemonDetailStatsFragment"
+            app:destination="@id/pokemonDetailStatsFragment" />
     </fragment>
+    
+    <fragment
+        android:id="@+id/pokemonDetailStatsFragment"
+        android:name="com.example.myapplication.ui.PokemonDetailStatsFragment"
+        android:label="Pokemon Details">
+        <action
+            android:id="@+id/action_pokemonDetailStatsFragment_to_statisticsFragment"
+            app:destination="@id/statisticsFragment" />
+        <argument
+            android:name="pokemonName"
+            app:argType="string" />
+        <argument
+            android:name="pokemonSpecies" 
+            app:argType="string" />
+        <argument
+            android:name="pokemonTotalBattles"
+            app:argType="integer" />
+        <argument
+            android:name="pokemonWins"
+            app:argType="integer" />
+        <argument
+            android:name="pokemonLosses"
+            app:argType="integer" />
+        <argument
+            android:name="pokemonTrainingDays"
+            app:argType="integer" />
+    </fragment>
+
 </navigation>
