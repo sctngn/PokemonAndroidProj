@@ -4,32 +4,39 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
-    android:checkable="true"
-    app:cardElevation="2dp">
+    app:cardElevation="2dp"
+    app:cardCornerRadius="8dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/nameText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceSubtitle1"/>
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:text="Pokemon Name" />
 
         <TextView
             android:id="@+id/speciesText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceBody2"/>
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:text="Species" />
 
         <TextView
             android:id="@+id/statsText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceBody2"/>
+            android:layout_marginTop="8dp"
+            android:textAppearance="?attr/textAppearanceBody2"
+            android:text="ATK: 0, DEF: 0, HP: 0/0, EXP: 0" />
 
     </LinearLayout>
 

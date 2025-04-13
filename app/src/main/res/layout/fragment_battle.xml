@@ -7,86 +7,94 @@
 
     <TextView
         android:id="@+id/titleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Pokemon for Battle"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/selectionInstructions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="First select your Pokemon, then select an opponent"
+        android:textStyle="italic"
+        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toBottomOf="@id/titleText"/>
+
+    <Button
+        android:id="@+id/returnHomeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Battle Arena"
-        android:textAppearance="?attr/textAppearanceHeadline5"
-        app:layout_constraintTop_toTopOf="parent"
+        android:text="Return Home"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/selectionInstructions"
         app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/startBattleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Battle"
+        android:layout_marginTop="8dp"
+        android:enabled="false"
+        app:layout_constraintTop_toBottomOf="@id/selectionInstructions"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/pokemonListLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Available Pokemon:"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/returnHomeButton"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lutemonList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintTop_toBottomOf="@id/titleText"
-        app:layout_constraintBottom_toTopOf="@id/battleCard"/>
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="#F5F5F5"
+        app:layout_constraintTop_toBottomOf="@id/pokemonListLabel"
+        app:layout_constraintBottom_toTopOf="@id/battleLogLabel"/>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/battleCard"
+    <TextView
+        android:id="@+id/battleLogLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@id/controlButtons">
+        android:text="Selection Status:"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@id/battleLogScrollView"/>
 
-        <LinearLayout
+    <ScrollView
+        android:id="@+id/battleLogScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@id/battleActionsLayout">
+
+        <TextView
+            android:id="@+id/battleLogText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:textSize="14sp"
+            android:padding="8dp"
+            android:background="#F5F5F5"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Battle Status"
-                android:textAppearance="?attr/textAppearanceHeadline6"
-                android:layout_marginBottom="8dp"/>
-
-            <TextView
-                android:id="@+id/battleLogText"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@android:color/darker_gray"
-                android:padding="8dp"
-                android:textColor="@android:color/white"
-                android:gravity="bottom"
-                android:scrollbars="vertical"/>
-
-            <Button
-                android:id="@+id/startBattleButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Start Battle"
-                android:layout_gravity="center"
-                android:layout_marginTop="8dp"/>
-
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
+    </ScrollView>
 
     <LinearLayout
-        android:id="@+id/controlButtons"
+        android:id="@+id/battleActionsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <Button
-            android:id="@+id/returnHomeButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Return Home"
-            android:layout_margin="4dp"/>
-
-        <Button
-            android:id="@+id/toTrainingButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="To Training"
-            android:layout_margin="4dp"/>
-
-    </LinearLayout>
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

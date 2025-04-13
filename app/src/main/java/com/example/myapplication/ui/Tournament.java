@@ -11,17 +11,19 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentBattleBinding;
-import com.example.myapplication.model.Battle;
 import com.example.myapplication.model.Pokemon;
 import com.example.myapplication.model.PokeCenter;
 import java.util.List;
 
-public class Tournament extends Fragment implements Battle.BattleListener {
+/**
+ * Tournament fragment for selecting Pokemon for battle
+ */
+public class Tournament extends Fragment {
     private FragmentBattleBinding binding;
     private PokeCenter pokeCenter;
     private PokemonAdapter adapter;
-    private Pokemon selectedPokemon1 = null;
-    private Pokemon selectedPokemon2 = null;
+    private Pokemon selectedPlayerPokemon = null;
+    private Pokemon selectedOpponentPokemon = null;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,7 +40,7 @@ public class Tournament extends Fragment implements Battle.BattleListener {
         binding.lutemonList.setAdapter(adapter);
 
         // Update title
-        binding.titleText.setText("Tournament");
+        binding.titleText.setText("Select Pokemon for Battle");
 
         // Setup buttons
         binding.returnHomeButton.setOnClickListener(v -> {
@@ -49,83 +51,58 @@ public class Tournament extends Fragment implements Battle.BattleListener {
                     pokeCenter.movePokemon(pokemon.getId(), pokeCenter.getBattle(), pokeCenter.getHome());
                 }
             }
+            
             // Navigate back to home
             Navigation.findNavController(v).navigate(R.id.action_battleFragment_to_homeFragment);
         });
 
-        binding.startBattleButton.setOnClickListener(v -> fight());
+        binding.startBattleButton.setOnClickListener(v -> startBattle());
         
         // Clear battle log
-        binding.battleLogText.setText("");
+        binding.battleLogText.setText("Select your Pokemon for battle.\n" +
+                                     "First selection: Your Pokemon\n" +
+                                     "Second selection: Opponent Pokemon (AI controlled)\n");
     }
 
     private void onPokemonSelected(Pokemon pokemon) {
-        if (selectedPokemon1 == null) {
-            selectedPokemon1 = pokemon;
-            binding.battleLogText.append("First Pokemon selected: " + pokemon.getName() + "\n");
-        } else if (selectedPokemon2 == null && pokemon != selectedPokemon1) {
-            selectedPokemon2 = pokemon;
-            binding.battleLogText.append("Second Pokemon selected: " + pokemon.getName() + "\n");
-            binding.battleLogText.append("Ready to battle! Press the Start Battle button.\n");
+        if (selectedPlayerPokemon == null) {
+            // First selection is player's Pokemon
+            selectedPlayerPokemon = pokemon;
+            binding.battleLogText.append("You selected: " + pokemon.getName() + " (" + pokemon.getSpecies() + ")\n");
+            binding.battleLogText.append("Now select an opponent Pokemon.\n");
+        } else if (selectedOpponentPokemon == null && pokemon.getId() != selectedPlayerPokemon.getId()) {
+            // Second selection is opponent Pokemon
+            selectedOpponentPokemon = pokemon;
+            binding.battleLogText.append("Opponent selected: " + pokemon.getName() + " (" + pokemon.getSpecies() + ")\n");
+            binding.battleLogText.append("Ready for battle! Press 'Start Battle' button.\n");
+            binding.startBattleButton.setEnabled(true);
+        } else if (pokemon.getId() == selectedPlayerPokemon.getId()) {
+            // Clicked on already selected player Pokemon
+            Toast.makeText(requireContext(), "This Pokemon is already selected as your Pokemon", Toast.LENGTH_SHORT).show();
         } else {
             // Reset selections
-            selectedPokemon1 = pokemon;
-            selectedPokemon2 = null;
-            binding.battleLogText.setText("First Pokemon selected: " + pokemon.getName() + "\n");
+            selectedPlayerPokemon = pokemon;
+            selectedOpponentPokemon = null;
+            binding.battleLogText.setText("You selected: " + pokemon.getName() + " (" + pokemon.getSpecies() + ")\n");
+            binding.battleLogText.append("Now select an opponent Pokemon.\n");
+            binding.startBattleButton.setEnabled(false);
         }
     }
 
-    private void fight() {
-        if (selectedPokemon1 == null || selectedPokemon2 == null) {
-            Toast.makeText(requireContext(), "Please select two Pokemon for battle", Toast.LENGTH_SHORT).show();
+    private void startBattle() {
+        if (selectedPlayerPokemon == null || selectedOpponentPokemon == null) {
+            Toast.makeText(requireContext(), "Please select both Pokemon for battle", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        // Clear previous battle log
-        binding.battleLogText.setText("");
-        binding.battleLogText.append("Battle started: " + selectedPokemon1.getName() + " vs " + selectedPokemon2.getName() + "\n\n");
-
-        // Start battle
-        Battle battle = new Battle(selectedPokemon1, selectedPokemon2);
-        battle.addListener(this);
-        Pokemon winner = battle.runFullBattle();
-
-        // Update UI
-        adapter.updatePokemons(pokeCenter.getBattle().listPokemons());
         
-        // Reset selections
-        selectedPokemon1 = null;
-        selectedPokemon2 = null;
-    }
-
-    @Override
-    public void onAttack(Pokemon attacker, Pokemon defender, int damage, boolean isSpecialAttack, double multiplier) {
-        StringBuilder attackMessage = new StringBuilder();
-        attackMessage.append(attacker.getName()).append(" attacks ").append(defender.getName());
+        // Create bundle with Pokemon IDs
+        Bundle args = new Bundle();
+        args.putInt("playerPokemonId", selectedPlayerPokemon.getId());
+        args.putInt("opponentPokemonId", selectedOpponentPokemon.getId());
         
-        // Add special attack information if applicable
-        if (isSpecialAttack) {
-            if (attacker.getSpecies().equals("Pikachu")) {
-                if (multiplier < 1.0) {
-                    attackMessage.append(" with a weak Thunderbolt (0.5x)");
-                } else if (multiplier > 1.0) {
-                    attackMessage.append(" with a critical Thunderbolt (2x)");
-                }
-            }
-        }
-        
-        attackMessage.append(" for ").append(damage).append(" damage!\n");
-        binding.battleLogText.append(attackMessage.toString());
-        binding.battleLogText.append(defender.getName() + " HP: " + defender.getHP() + "/" + defender.getMaxHP() + "\n\n");
-    }
-
-    @Override
-    public void onBattleOver(Pokemon winner, Pokemon loser) {
-        binding.battleLogText.append("Battle over! " + winner.getName() + " wins!\n");
-        binding.battleLogText.append(loser.getName() + " is defeated.\n\n");
-        
-        // Remove defeated Pokemon
-        pokeCenter.getBattle().removePokemon(loser.getId());
+        // Navigate to battle scene with arguments
+        Navigation.findNavController(requireView())
+                .navigate(R.id.action_battleFragment_to_battleSceneFragment, args);
     }
 
     @Override

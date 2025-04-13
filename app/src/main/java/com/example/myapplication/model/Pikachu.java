@@ -9,7 +9,6 @@ public class Pikachu extends Pokemon {
     private Random random = new Random();
     
     public Pikachu(String name) {
-        // Using similar stats to the WhiteLutemon
         super(name, "Pikachu", 5, 4, 20);
     }
     

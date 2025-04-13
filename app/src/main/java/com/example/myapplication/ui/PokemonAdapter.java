@@ -9,42 +9,58 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.model.Pokemon;
 import java.util.List;
-import java.util.function.Consumer;
 
 /**
  * Adapter for displaying Pokemon in a RecyclerView
  */
-public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder> {
+public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHolder> {
     private List<Pokemon> pokemons;
-    private Consumer<Pokemon> onPokemonClickListener;
+    private OnPokemonClickListener clickListener;
 
-    public PokemonAdapter(List<Pokemon> pokemons) {
-        this.pokemons = pokemons;
-        this.onPokemonClickListener = null;
+    /**
+     * Interface for handling Pokemon selection
+     */
+    public interface OnPokemonClickListener {
+        void onPokemonClick(Pokemon pokemon);
     }
 
-    public PokemonAdapter(List<Pokemon> pokemons, Consumer<Pokemon> onPokemonClickListener) {
+    /**
+     * Constructor with Pokemon list and click listener
+     */
+    public PokemonAdapter(List<Pokemon> pokemons, OnPokemonClickListener clickListener) {
         this.pokemons = pokemons;
-        this.onPokemonClickListener = onPokemonClickListener;
+        this.clickListener = clickListener;
+    }
+
+    /**
+     * Constructor with just Pokemon list (no click listener)
+     */
+    public PokemonAdapter(List<Pokemon> pokemons) {
+        this.pokemons = pokemons;
+        this.clickListener = null;
     }
 
     @NonNull
     @Override
-    public PokemonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_lutemon, parent, false);
-        return new PokemonViewHolder(view);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_lutemon, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PokemonViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Pokemon pokemon = pokemons.get(position);
         holder.nameText.setText(pokemon.getName());
         holder.speciesText.setText(pokemon.getSpecies());
-        holder.statsText.setText(String.format("ATK: %d, DEF: %d, HP: %d/%d, EXP: %d",
-                pokemon.getAttack(), pokemon.getDefense(), pokemon.getHP(), pokemon.getMaxHP(), pokemon.getExp()));
-
-        if (onPokemonClickListener != null) {
-            holder.itemView.setOnClickListener(v -> onPokemonClickListener.accept(pokemon));
+        holder.statsText.setText("ATK: " + pokemon.getAttack() + 
+                               " DEF: " + pokemon.getDefense() + 
+                               " HP: " + pokemon.getHP() + "/" + pokemon.getMaxHP() +
+                               " EXP: " + pokemon.getExp());
+        
+        // Set click listener if available
+        if (clickListener != null) {
+            holder.itemView.setOnClickListener(v -> clickListener.onPokemonClick(pokemon));
         }
     }
 
@@ -53,17 +69,23 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonV
         return pokemons.size();
     }
 
+    /**
+     * Update the Pokemon list and refresh the view
+     */
     public void updatePokemons(List<Pokemon> pokemons) {
         this.pokemons = pokemons;
         notifyDataSetChanged();
     }
 
-    static class PokemonViewHolder extends RecyclerView.ViewHolder {
+    /**
+     * ViewHolder for Pokemon items
+     */
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView nameText;
         TextView speciesText;
         TextView statsText;
 
-        public PokemonViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             nameText = itemView.findViewById(R.id.nameText);
             speciesText = itemView.findViewById(R.id.speciesText);

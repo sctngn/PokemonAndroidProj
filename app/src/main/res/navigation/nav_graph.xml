@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.myapplication.ui.HomeScreen"
-        android:label="@string/app_name"
+        android:label="Home"
         tools:layout="@layout/fragment_home">
         
         <action
@@ -23,7 +23,7 @@
     <fragment
         android:id="@+id/trainingFragment"
         android:name="com.example.myapplication.ui.TrainingArea"
-        android:label="Training Area"
+        android:label="Training"
         tools:layout="@layout/fragment_training">
         
         <action
@@ -38,7 +38,7 @@
     <fragment
         android:id="@+id/battleFragment"
         android:name="com.example.myapplication.ui.Tournament"
-        android:label="Tournament"
+        android:label="Battle"
         tools:layout="@layout/fragment_battle">
         
         <action
@@ -46,7 +46,22 @@
             app:destination="@id/homeFragment" />
             
         <action
-            android:id="@+id/action_battleFragment_to_trainingFragment"
-            app:destination="@id/trainingFragment" />
+            android:id="@+id/action_battleFragment_to_battleSceneFragment"
+            app:destination="@id/battleSceneFragment" />
+    </fragment>
+    
+    <fragment
+        android:id="@+id/battleSceneFragment"
+        android:name="com.example.myapplication.ui.BattleScene"
+        android:label="Battle Scene"
+        tools:layout="@layout/fragment_battle_scene">
+        
+        <action
+            android:id="@+id/action_battleSceneFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+            
+        <action
+            android:id="@+id/action_battleSceneFragment_to_battleFragment"
+            app:destination="@id/battleFragment" />
     </fragment>
 </navigation>

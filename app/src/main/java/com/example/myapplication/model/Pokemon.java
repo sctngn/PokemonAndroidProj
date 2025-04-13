@@ -1,28 +1,33 @@
 package com.example.myapplication.model;
 
+import java.io.Serializable;
+
 /**
  * Base class for all Pokemon in the game.
  * Each Pokemon has stats like attack, defense, and health that affect battle performance.
  */
-public class Pokemon {
+public class Pokemon implements Serializable {
     private String name;
     private String species;
     private int attack;
+    private int baseDefense; // Store original defense value
     private int defense;
     private int exp = 0;
-    private int HP;
     private int maxHP;
+    private int HP;
     private static int idCounter = 0;
     private int id;
 
     public Pokemon(String name, String species, int attack, int defense, int maxHP) {
+        this.id = idCounter++;
         this.name = name;
         this.species = species;
         this.attack = attack;
+        this.baseDefense = defense; // Store original defense
         this.defense = defense;
         this.maxHP = maxHP;
         this.HP = maxHP;
-        this.id = idCounter++;
+        this.exp = 0;
     }
 
     /**
@@ -41,7 +46,7 @@ public class Pokemon {
      */
     public Pokemon defense(Pokemon attacker) {
         int totalAttack = attacker.attack();
-        int damage = Math.max(0, totalAttack - this.defense);
+        int damage = Math.max(0, totalAttack - (this.defense));
         this.HP = Math.max(0, this.HP - damage);
         return this;
     }
@@ -59,6 +64,13 @@ public class Pokemon {
      */
     public void heal() {
         HP = maxHP;
+    }
+
+    /**
+     * Resets experience points to zero
+     */
+    public void resetExperience() {
+        exp = 0;
     }
 
     /**
@@ -86,16 +98,24 @@ public class Pokemon {
         return species;
     }
 
-    public int getAttack() {
-        return attack + exp;
-    }
-
     public int getBaseAttack() {
         return attack;
     }
 
+    public int getAttack() {
+        return attack + exp;
+    }
+
     public int getDefense() {
         return defense;
+    }
+
+    public void setDefense(int defense) {
+        this.defense = defense;
+    }
+
+    public int getBaseDefense() {
+        return baseDefense;
     }
 
     public int getExp() {
@@ -104,6 +124,10 @@ public class Pokemon {
 
     public int getHP() {
         return HP;
+    }
+
+    public void setHP(int hp) {
+        this.HP = Math.max(0, Math.min(hp, maxHP));
     }
 
     public int getMaxHP() {
