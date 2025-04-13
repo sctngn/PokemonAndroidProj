@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:id="@+id/battleField"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/battleLogCard"
+        android:layout_marginBottom="16dp">
+
+        <!-- Opponent Pokemon -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/opponentCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="#FFCDD2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/opponentNameText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Opponent Pokemon"
+                    android:textAppearance="?attr/textAppearanceHeadline6"/>
+
+                <TextView
+                    android:id="@+id/opponentSpeciesText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Species"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"/>
+
+                <ProgressBar
+                    android:id="@+id/opponentHealthBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:progressTint="#F44336"
+                    android:max="100"
+                    android:progress="100"/>
+
+                <TextView
+                    android:id="@+id/opponentStatsText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="HP: 0/0 | ATK: 0 | DEF: 0"
+                    android:textAppearance="?attr/textAppearanceBody2"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Battle Field with Pokemon Images -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <!-- Opponent Pokemon Image (Top Right) -->
+            <ImageView
+                android:id="@+id/opponentPokemonImage"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="top|end"
+                android:layout_margin="16dp"
+                android:contentDescription="Opponent Pokemon"
+                android:scaleType="fitCenter"/>
+
+            <!-- Player Pokemon Image (Bottom Left) -->
+            <ImageView
+                android:id="@+id/playerPokemonImage"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="bottom|start"
+                android:layout_margin="16dp"
+                android:contentDescription="Player Pokemon"
+                android:scaleType="fitCenter"/>
+                
+            <!-- Attack Effect Animation (Full Screen Overlay) -->
+            <ImageView
+                android:id="@+id/attackEffectImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:contentDescription="Attack Effect"
+                android:scaleType="fitXY"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <!-- Player Pokemon -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/playerCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="#C8E6C9">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/playerNameText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Your Pokemon"
+                    android:textAppearance="?attr/textAppearanceHeadline6"/>
+
+                <TextView
+                    android:id="@+id/playerSpeciesText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Species"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"/>
+
+                <ProgressBar
+                    android:id="@+id/playerHealthBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:progressTint="#4CAF50"
+                    android:max="100"
+                    android:progress="100"/>
+
+                <TextView
+                    android:id="@+id/playerStatsText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="HP: 0/0 | ATK: 0 | DEF: 0"
+                    android:textAppearance="?attr/textAppearanceBody2"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <!-- Battle Log -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/battleLogCard"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginBottom="16dp"
+        app:cardElevation="2dp"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toTopOf="@id/battleActionsLayout">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/battleLogText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:textSize="12sp"
+                android:text="Battle log will appear here..."/>
+        </ScrollView>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Battle Actions -->
+    <LinearLayout
+        android:id="@+id/battleActionsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@id/returnHomeButton">
+
+        <Button
+            android:id="@+id/attackButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Attack"
+            android:layout_margin="4dp"/>
+
+        <Button
+            android:id="@+id/defendButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Defend"
+            android:layout_margin="4dp"/>
+
+        <!-- Special button is kept in layout but hidden in code -->
+        <Button
+            android:id="@+id/specialButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Special"
+            android:visibility="gone"
+            android:layout_margin="4dp"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/returnHomeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Return Home"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
