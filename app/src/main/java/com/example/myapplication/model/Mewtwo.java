@@ -24,7 +24,7 @@ public class Mewtwo extends Pokemon {
     
     @Override
     public int getImageResourceId() {
-        return R.drawable.mewtwo;
+        return R.drawable.mewtwo_idle;
     }
     
     /**

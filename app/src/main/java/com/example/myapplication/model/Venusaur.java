@@ -24,6 +24,6 @@ public class Venusaur extends Pokemon {
     
     @Override
     public int getImageResourceId() {
-        return R.drawable.venusaur;
+        return R.drawable.venusaur_idle;
     }
 }

@@ -23,6 +23,6 @@ public class Charizard extends Pokemon {
     
     @Override
     public int getImageResourceId() {
-        return R.drawable.charizard;
+        return R.drawable.charizard_idle;
     }
 }

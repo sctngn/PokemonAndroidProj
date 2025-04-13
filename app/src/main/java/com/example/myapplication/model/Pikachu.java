@@ -26,7 +26,7 @@ public class Pikachu extends Pokemon {
     
     @Override
     public int getImageResourceId() {
-        return R.drawable.pikachu;
+        return R.drawable.pikachu_idle;
     }
     
     /**

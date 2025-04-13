@@ -24,6 +24,6 @@ public class Blastoise extends Pokemon {
     
     @Override
     public int getImageResourceId() {
-        return R.drawable.blastoise;
+        return R.drawable.blastoise_idle;
     }
 }
