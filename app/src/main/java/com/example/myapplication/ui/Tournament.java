@@ -35,7 +35,8 @@ public class Tournament extends Fragment {
 
     private void setupViews() {
         // Setup RecyclerView
-        adapter = new PokemonAdapter(pokeCenter.getBattle().listPokemons(), this::onPokemonSelected);
+        adapter = new PokemonAdapter(pokeCenter.getBattle().listPokemons());
+        adapter.setOnPokemonClickListener(this::onPokemonSelected);
         binding.lutemonList.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.lutemonList.setAdapter(adapter);
 

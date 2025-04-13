@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Base class for all Pokemon in the game.
  * Each Pokemon has stats like attack, defense, and health that affect battle performance.
  */
-public class Pokemon implements Serializable {
+public abstract class Pokemon implements Serializable {
     private String name;
     private String species;
     private int attack;
@@ -37,6 +37,28 @@ public class Pokemon implements Serializable {
      */
     public int attack() {
         return attack + exp;
+    }
+
+    /**
+     * Get the name of the attack skill
+     * @return Name of the attack skill
+     */
+    public abstract String getAttackSkillName();
+
+    /**
+     * Get the name of the defend skill
+     * @return Name of the defend skill
+     */
+    public abstract String getDefendSkillName();
+
+    /**
+     * Get the image resource ID for this Pokemon
+     * @return Resource ID for the Pokemon's image
+     */
+    public int getImageResourceId() {
+        // Default implementation returns a placeholder
+        // Subclasses should override this to return their specific image
+        return android.R.drawable.ic_menu_gallery;
     }
 
     /**

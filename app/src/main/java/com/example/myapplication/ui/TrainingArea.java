@@ -33,8 +33,9 @@ public class TrainingArea extends Fragment {
     }
 
     private void setupViews() {
-        // Setup RecyclerView with selection listener
-        adapter = new PokemonAdapter(pokeCenter.getTraining().listPokemons(), this::onPokemonSelected);
+        // Setup RecyclerView
+        adapter = new PokemonAdapter(pokeCenter.getTraining().listPokemons());
+        adapter.setOnPokemonClickListener(this::onPokemonSelected);
         binding.lutemonList.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.lutemonList.setAdapter(adapter);
 
@@ -119,7 +120,7 @@ public class TrainingArea extends Fragment {
                 
                 // Update UI
                 binding.titleText.setText("Training Area");
-                adapter.updatePokemons(pokeCenter.getTraining().listPokemons());
+                adapter.updatePokemonList(pokeCenter.getTraining().listPokemons());
                 
                 // Re-enable buttons
                 binding.trainButton.setEnabled(true);

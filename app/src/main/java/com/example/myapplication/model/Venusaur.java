@@ -1,5 +1,7 @@
 package com.example.myapplication.model;
 
+import com.example.myapplication.R;
+
 /**
  * Venusaur Pokemon class
  */
@@ -10,10 +12,18 @@ public class Venusaur extends Pokemon {
         super(name, "Venusaur", 6, 3, 19);
     }
     
-    /**
-     * Venusaur's special move
-     */
-    public void RazorLeaf() {
-        // Special move implementation
+    @Override
+    public String getAttackSkillName() {
+        return "Razor Leaf";
+    }
+    
+    @Override
+    public String getDefendSkillName() {
+        return "Vine Whip Barrier";
+    }
+    
+    @Override
+    public int getImageResourceId() {
+        return R.drawable.venusaur;
     }
 }

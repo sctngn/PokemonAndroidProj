@@ -90,14 +90,30 @@ public class Battle {
      * Perform an attack from attacker to defender
      */
     private void performAttack(Pokemon attacker, Pokemon defender) {
+        // Get attack power with any multipliers already applied
         int attackPower = attacker.attack();
-        
-        // Apply the attack
-        defender.defense(attacker);
         int damage = Math.max(0, attackPower - defender.getDefense());
         
-        // Notify listeners
-        notifyAttack(attacker, defender, damage);
+        // Apply the attack through the defense method
+        defender.defense(attacker);
+        
+        // Create the battle log message
+        String skillName = attacker.getAttackSkillName();
+        
+        // Add multiplier info for Pikachu
+        if (attacker instanceof Pikachu) {
+            Pikachu pikachu = (Pikachu) attacker;
+            double multiplier = pikachu.getLastMultiplier();
+            
+            if (multiplier == 0) {
+                skillName += " (Missed)";
+            } else if (multiplier == 2.0) {
+                skillName += " (Super effective!)";
+            }
+        }
+        
+        // Notify listeners with the enhanced skill name
+        notifyAttack(attacker, defender, damage, skillName);
     }
 
     /**
@@ -147,9 +163,9 @@ public class Battle {
         listeners.add(listener);
     }
 
-    private void notifyAttack(Pokemon attacker, Pokemon defender, int damage) {
+    private void notifyAttack(Pokemon attacker, Pokemon defender, int damage, String skillName) {
         for (BattleListener listener : listeners) {
-            listener.onAttack(attacker, defender, damage);
+            listener.onAttack(attacker, defender, damage, skillName);
         }
     }
 
@@ -177,7 +193,7 @@ public class Battle {
     }
 
     public interface BattleListener {
-        void onAttack(Pokemon attacker, Pokemon defender, int damage);
+        void onAttack(Pokemon attacker, Pokemon defender, int damage, String skillName);
         void onDefend(Pokemon pokemon);
         void onBattleOver(Pokemon winner, Pokemon loser);
         void onReturnHome(Pokemon pokemon);

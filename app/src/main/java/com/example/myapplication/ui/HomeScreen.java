@@ -115,7 +115,7 @@ public class HomeScreen extends Fragment {
         }
 
         Pokemon pokemon = pokeCenter.createPokemon(name, species);
-        adapter.updatePokemons(pokeCenter.getHome().listPokemons());
+        adapter.updatePokemonList(pokeCenter.getHome().listPokemons());
         binding.nameInput.setText("");
         
         // Clear color selection after creating
@@ -130,13 +130,13 @@ public class HomeScreen extends Fragment {
     private void showAreaPokemons(String area) {
         switch (area) {
             case "home":
-                adapter.updatePokemons(pokeCenter.getHome().listPokemons());
+                adapter.updatePokemonList(pokeCenter.getHome().listPokemons());
                 break;
             case "training":
-                adapter.updatePokemons(pokeCenter.getTraining().listPokemons());
+                adapter.updatePokemonList(pokeCenter.getTraining().listPokemons());
                 break;
             case "battle":
-                adapter.updatePokemons(pokeCenter.getBattle().listPokemons());
+                adapter.updatePokemonList(pokeCenter.getBattle().listPokemons());
                 break;
         }
     }

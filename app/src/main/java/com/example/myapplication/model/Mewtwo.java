@@ -1,5 +1,7 @@
 package com.example.myapplication.model;
 
+import com.example.myapplication.R;
+
 /**
  * Mewtwo Pokemon class
  */
@@ -10,10 +12,25 @@ public class Mewtwo extends Pokemon {
         super(name, "Mewtwo", 9, 0, 16);
     }
     
+    @Override
+    public String getAttackSkillName() {
+        return "Psychic";
+    }
+    
+    @Override
+    public String getDefendSkillName() {
+        return "Barrier";
+    }
+    
+    @Override
+    public int getImageResourceId() {
+        return R.drawable.mewtwo;
+    }
+    
     /**
      * Mewtwo's special move
      */
-    public void Psystrike() {
+    public void PsychicAttack() {
         // Special move implementation
     }
 }

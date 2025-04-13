@@ -1,19 +1,28 @@
 package com.example.myapplication.model;
 
+import com.example.myapplication.R;
+
 /**
  * Charizard Pokemon class
  */
 public class Charizard extends Pokemon {
     
     public Charizard(String name) {
-        // Using similar stats to the PinkLutemon
         super(name, "Charizard", 7, 2, 18);
     }
     
-    /**
-     * Charizard's special move
-     */
-    public void Flamethrower() {
-        // Special move implementation
+    @Override
+    public String getAttackSkillName() {
+        return "Flamethrower";
+    }
+    
+    @Override
+    public String getDefendSkillName() {
+        return "Heat Wave";
+    }
+    
+    @Override
+    public int getImageResourceId() {
+        return R.drawable.charizard;
     }
 }

@@ -1,5 +1,7 @@
 package com.example.myapplication.model;
 
+import com.example.myapplication.R;
+
 /**
  * Blastoise Pokemon class
  */
@@ -10,10 +12,18 @@ public class Blastoise extends Pokemon {
         super(name, "Blastoise", 8, 1, 17);
     }
     
-    /**
-     * Blastoise's special move
-     */
-    public void HydroCannon() {
-        // Special move implementation
+    @Override
+    public String getAttackSkillName() {
+        return "Hydro Pump";
+    }
+    
+    @Override
+    public String getDefendSkillName() {
+        return "Withdraw";
+    }
+    
+    @Override
+    public int getImageResourceId() {
+        return R.drawable.blastoise;
     }
 }
