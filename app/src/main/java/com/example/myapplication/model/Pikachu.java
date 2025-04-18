@@ -61,8 +61,6 @@ public class Pikachu extends Pokemon {
             case 2:
                 lastMultiplier = 2.0; // Double damage (critical)
                 break;
-            default:
-                lastMultiplier = 1.0; // Fallback to normal damage
         }
         
         return (int)(baseAttack * lastMultiplier);

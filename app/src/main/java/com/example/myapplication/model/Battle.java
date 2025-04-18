@@ -46,7 +46,7 @@ public class Battle {
                 break;
             case DEFEND:
                 // Increase defense temporarily for this turn
-                playerPokemon.setDefense(playerPokemon.getDefense() + 3);
+                playerPokemon.setDefense(playerPokemon.getDefense() + 2);
                 notifyDefend(playerPokemon);
                 break;
         }
@@ -104,26 +104,14 @@ public class Battle {
     private void performAttack(Pokemon attacker, Pokemon defender) {
         // Create the battle log message
         String skillName = attacker.getAttackSkillName();
-        // Add multiplier info for Pikachu
-        if (attacker instanceof Pikachu) {
-            Pikachu pikachu = (Pikachu) attacker;
-            double multiplier = pikachu.getLastMultiplier();
-
-            if (multiplier == 0) {
-                skillName += " (Missed)";
-            } else if (multiplier == 2.0) {
-                skillName += " (Super effective!)";
-            }
-        }
         // Get attack power with any multipliers already applied
         int attackPower = attacker.attack();
         int damage = attackPower - defender.getDefense();
-        
         // Apply the damage directly
         defender.setHP(defender.getHP() - damage);
-        
         // Notify listeners with the enhanced skill name
         notifyAttack(attacker, defender, damage, skillName);
+
     }
 
     /**
