@@ -31,6 +31,10 @@ Hi, my name is An Nguyen and this is my Pokemon game project for the OOP course.
 
 #### Pokemons Have Images
 
+<div style="display: flex; overflow-x: auto; gap: 50px;">
+  <img src="./AppScreenshot/ScrSh_PokemonImages" alt="App Screenshot" width="200" height="400">
+</div>
+
 #### Battle Visualization
 - Animated GIF specifically for each Pokemon when they attack.
 
