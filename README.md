@@ -9,7 +9,7 @@ Hi, my name is An Nguyen and this is my Pokemon game project for the OOP course.
 
 #### Pokemon Management
 - Users can create different types of Pokemons (Pikachu, Venusaur, Charizard, Blastoise, Mewtwo).
-- Newly created Pokemons are placed in home.
+- Newly created Pokemons are placed in **Home**.
 - Users can move Pokemons to training areas or battle arenas.
 
 #### Training System
