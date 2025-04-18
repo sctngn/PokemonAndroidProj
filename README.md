@@ -67,14 +67,26 @@ Hi, my name is An Nguyen and this is my Pokemon game project for the OOP course.
 - As the original concept is LUTemon, I have changed to Pokemon so that we have 5 species as above and also attack/defend name skills.
 - Give ***Selection Status*** when choosing Pokemon for battle.
 
+<div style="display: flex; overflow-x: auto; gap: 50px;">
+  <img src="./AppScreenshot/ScrSh_SelectionStatus" alt="App Screenshot" width="200" height="400">
+</div>
+
 ### Training
 - Set a timer for a Pokemon when training; it will raise a cooldown clock for training (Base is 30s).
+
+<div style="display: flex; overflow-x: auto; gap: 50px;">
+  <img src="./AppScreenshot/ScrSh_Training" alt="App Screenshot" width="200" height="400">
+</div>
 
 ### In-battle Mechanism
 - **Defend** will increase your Pokemon defense +2 for one round.
 
 ### User Interface
 - New battle UI with **Health bar** and different animated GIF for **Battle effect** when Pokemon use their skill.
+
+<div style="display: flex; overflow-x: auto; gap: 50px;">
+  <img src="./AppScreenshot/ScrSh_BattleUI" alt="App Screenshot" width="200" height="400">
+</div>
 
 ## AI and Plagiarism
 - I have partly used AI (Claude 3.7 Sonnet) for
