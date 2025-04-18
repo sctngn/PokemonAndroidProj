@@ -85,7 +85,7 @@ Hi, my name is An Nguyen and this is my Pokemon game project for the OOP course.
 - New battle UI with **Health bar** and different animated GIF for **Battle effect** when Pokemon use their skill.
 
 <div style="display: flex; overflow-x: auto; gap: 50px;">
-  <img src="./AppScreenshot/ScrSh_BattleUI" alt="App Screenshot" width="200" height="400">
+  <img src="./AppScreenshot/ScrSh_BattleUI.png" alt="App Screenshot" width="200" height="400">
 </div>
 
 ## AI and Plagiarism
