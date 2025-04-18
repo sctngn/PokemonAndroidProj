@@ -75,13 +75,13 @@ public class Battle {
             return isOver;
         }
 
-        // Reset defense bonus from previous turn if defend was used
+        // Opponent always attacks
+        performAttack(opponentPokemon, playerPokemon);
+
+        // Reset defense bonus AFTER the attack is processed
         if (playerPokemon.getDefense() > playerPokemon.getBaseDefense()) {
             playerPokemon.setDefense(playerPokemon.getBaseDefense());
         }
-
-        // Opponent always attacks
-        performAttack(opponentPokemon, playerPokemon);
 
         // Check if player Pokemon is defeated
         if (playerPokemon.getHP() <= 0) {
@@ -106,12 +106,12 @@ public class Battle {
         String skillName = attacker.getAttackSkillName();
         // Get attack power with any multipliers already applied
         int attackPower = attacker.attack();
-        int damage = attackPower - defender.getDefense();
+        // Calculate damage
+        int damage = Math.max(0, attackPower - defender.getDefense());
         // Apply the damage directly
         defender.setHP(defender.getHP() - damage);
         // Notify listeners with the enhanced skill name
         notifyAttack(attacker, defender, damage, skillName);
-
     }
 
     /**
