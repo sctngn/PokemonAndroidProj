@@ -5,6 +5,17 @@ Hi, my name is An Nguyen and this is my Pokemon game project for the OOP course.
 - Android Studio
 - Java
 
+## Installation
+
+To install and run this app on your Android Studio, follow these steps:
+1. Clone the repository
+    ```bash
+    git clone https://github.com/sctngn/PokemonAndroidProj.git
+    ```
+2. Open the project in Android Studio
+3. Connect to your Android phone or select to run in a simulator
+4. Build and run the project
+
 ## Basic features from requirements
 
 #### Pokemon Management
