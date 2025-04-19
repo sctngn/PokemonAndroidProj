@@ -19,7 +19,7 @@ To install and run this app on your Android Studio, follow these steps:
 ## UML Diagram
 
 <div style="display: flex; overflow-x: auto; gap: 50px;">
-  <img src="./AppScreenshot/Screenshot 2025-04-19 034607.png" alt="App Screenshot" width="300" height="600">
+  <img src="./AppScreenshot/Screenshot 2025-04-19 034607.png" alt="App Screenshot" width="400" height="600">
 </div>
 
 
