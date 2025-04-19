@@ -5,16 +5,29 @@ Hi, my name is An Nguyen and this is my Pokemon game project for the OOP course.
 - Android Studio
 - Java
 
+## Installation
+
+To install and run this app on your Android Studio, follow these steps:
+1. Clone the repository
+    ```bash
+    git clone https://github.com/sctngn/PokemonAndroidProj.git
+    ```
+2. Open the project in Android Studio
+3. Connect to your Android phone or select to run in a simulator
+4. Build and run the project
+
 ## Basic features from requirements
 
 #### Pokemon Management
 - Users can create different types of Pokemons (Pikachu, Venusaur, Charizard, Blastoise, Mewtwo).
 - Newly created Pokemons are placed in **Home**.
 - Users can move Pokemons to training areas or battle arenas.
+- Demo video: [https://youtu.be/fiSXqdLtfDM?si=GlN8ceJes0RvCJWk]
 
 #### Training System
 - Pokemons gain experience points when trained.
 - Experience increases attack power (e.g., if XP = 2, attack increases by 2 points)
+- Demo video: [https://youtu.be/MlzI_TSV_WA?si=Ix6HO7yCifONwJXW]
 
 #### Turn-Based Battle System
 - Users can select two Pokemons to baHle.
@@ -23,6 +36,7 @@ Hi, my name is An Nguyen and this is my Pokemon game project for the OOP course.
   - The batlle continues until one Pokemon’s health drops to zero.
   - The winner gains an experience point.
   - The loser is move to Home then healed.
+- Demo video: [https://youtu.be/FsRy3TGhNuQ?si=X_6pYpFqY7MzGbMp]
 
 ## Bonus features 
 
@@ -60,6 +74,7 @@ Hi, my name is An Nguyen and this is my Pokemon game project for the OOP course.
 
 #### Statistics Visualization
 - Using AnyChart-Android for pie chart win rate ratio for each Pokemon.
+- Demo video: [https://youtu.be/i7wDYJ50kQ4?si=3AA6E6hWcEgrPcjU]
 
 ## Custom feature
 
@@ -83,6 +98,7 @@ Hi, my name is An Nguyen and this is my Pokemon game project for the OOP course.
 
 ### User Interface
 - New battle UI with **Health bar** and different animated GIF for **Battle effect** when Pokemon use their skill.
+- Demo video: [https://youtu.be/EYyIzAIzHQU?si=lRh0odbG_NNq_m2b]
 
 <div style="display: flex; overflow-x: auto; gap: 50px;">
   <img src="./AppScreenshot/ScrSh_BattleUI.png" alt="App Screenshot" width="200" height="400">
