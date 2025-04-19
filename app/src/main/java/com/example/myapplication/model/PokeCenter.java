@@ -42,29 +42,6 @@ public class PokeCenter {
         this.context = context;
     }
 
-    /**
-     * Catch a Pokemon and add it to storage
-     * @param pokemon The Pokemon to catch
-     */
-    public void catchPokemon(Pokemon pokemon) {
-        home.addPokemon(pokemon);
-    }
-
-    /**
-     * Get a Pokemon by its ID
-     * @param id The ID of the Pokemon to retrieve
-     * @return The Pokemon if found, null otherwise
-     */
-    public Pokemon getPokemon(int id) {
-        // Check all storage areas
-        Pokemon pokemon = home.getPokemon(id);
-        if (pokemon != null) return pokemon;
-        
-        pokemon = training.getPokemon(id);
-        if (pokemon != null) return pokemon;
-        
-        return battle.getPokemon(id);
-    }
 
     /**
      * Create a new Pokemon with the given name and species
@@ -130,12 +107,6 @@ public class PokeCenter {
         return maxId + 1;
     }
 
-    /**
-     * Open the PC to access Pokemon
-     */
-    public void openPC() {
-        // Implementation for opening the PC interface
-    }
 
     /**
      * Move a Pokemon from one area to another
@@ -162,24 +133,13 @@ public class PokeCenter {
         Pokemon pokemon = training.getPokemon(pokemonId);
         if (pokemon != null) {
             pokemon.gainExperience();
+            pokemon.recordTrainingDay();
             return true;
         }
         return false;
     }
 
-    /**
-     * Train a Pokemon to increase its stats
-     * @param pokemon Pokemon to train
-     */
-    public void trainPokemon(Pokemon pokemon) {
-        if (pokemon != null) {
-            // Increase experience
-            pokemon.gainExperience();
-            
-            // Record training day
-            pokemon.recordTrainingDay();
-        }
-    }
+
 
     /**
      * Start a battle between two Pokemon in the battle arena
@@ -190,7 +150,7 @@ public class PokeCenter {
     public Battle fight(int pokemonAId, int pokemonBId) {
         Pokemon pokemonA = battle.getPokemon(pokemonAId);
         Pokemon pokemonB = battle.getPokemon(pokemonBId);
-        
+
         if (pokemonA != null && pokemonB != null) {
             return new Battle(pokemonA, pokemonB);
         }

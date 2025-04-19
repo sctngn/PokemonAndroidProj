@@ -114,16 +114,7 @@ public class Battle {
         notifyAttack(attacker, defender, damage, skillName);
     }
 
-    /**
-     * Reset the battle state for a new battle
-     */
-    public void reset() {
-        isOver = false;
-        isPlayerTurn = true;
-        // Reset health to max
-        playerPokemon.setHP(playerPokemon.getMaxHP());
-        opponentPokemon.setHP(opponentPokemon.getMaxHP());
-    }
+
 
     /**
      * Handle the end of battle - loser returns home with full health and loses exp
