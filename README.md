@@ -16,6 +16,10 @@ To install and run this app on your Android Studio, follow these steps:
 3. Connect to your Android phone or select to run in a simulator
 4. Build and run the project
 
+## UML Diagram
+
+AppScreenshot/Screenshot 2025-04-19 034607.png
+
 ## Basic features from requirements
 
 #### Pokemon Management
